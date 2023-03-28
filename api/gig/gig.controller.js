@@ -4,9 +4,12 @@ const logger = require('../../services/logger.service')
 
 async function getGigs(req, res) {
   try {
-    logger.debug('Getting Gigs')
+    logger.debug('Getting Gigs')//to update, same as front
     const filterBy = {
-      txt: req.query.txt || ''
+      title: req.query.title || '',
+      tag: req.query.tag || '',
+      budget: req.query.budget || 0,
+      daysToMake: req.query.daysToMake || 0,
     }
     const gigs = await gigService.query(filterBy)
     res.json(gigs)
@@ -65,7 +68,7 @@ async function removeGig(req, res) {
   }
 }
 
-async function addGigMsg(req, res) {
+async function addGigMsg(req, res) {//change to review from msg
   const {loggedinUser} = req
   try {
     const gigId = req.params.id
@@ -82,7 +85,7 @@ async function addGigMsg(req, res) {
   }
 }
 
-async function removeGigMsg(req, res) {
+async function removeGigMsg(req, res) {//to change to review
   const {loggedinUser} = req
   try {
     const gigId = req.params.id
