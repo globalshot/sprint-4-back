@@ -8,6 +8,7 @@ async function query(filterBy = { title: '' }) {
         const criteria = _buildCriteria(filterBy)
         const collection = await dbService.getCollection('gig')
         var gigs = await collection.find(criteria).toArray()
+        // console.log('back',gigs);
         return gigs
     } catch (err) {
         logger.error('cannot find gigs', err)
@@ -50,8 +51,10 @@ async function add(gig) {
 
 async function update(gig) {
     try {
+        const {_id} = gig
+        delete gig._id
         const collection = await dbService.getCollection('gig')
-        await collection.updateOne({ _id: new ObjectId(gig._id) }, { $set: gig })
+        await collection.updateOne({ _id: new ObjectId(_id) }, { $set: gig })
         return gig
     } catch (err) {
         logger.error(`cannot update gig ${gig._id}`, err)
@@ -95,15 +98,15 @@ function _buildCriteria(filterBy) {
         criteria.tags = { $in: [filterBy.tag] }
     }
 
-    if (filterBy.budget) {
+    if (filterBy.price) {
         criteria.price = {
-            $gte: filterBy.budget.min,
-            $lte: filterBy.budget.max
+            $gte: parseFloat(filterBy.price.min),
+            $lte: parseFloat(filterBy.price.max)
         }
     }
 
     if (filterBy.daysToMake) {
-        criteria.daysToMake = { $lte: filterBy.daysToMake }
+        criteria.daysToMake = { $lte: parseFloat(filterBy.daysToMake) }
     }
 
     return criteria

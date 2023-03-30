@@ -8,7 +8,7 @@ async function getGigs(req, res) {
     const filterBy = {
       title: req.query.title || '',
       tag: req.query.tag || '',
-      budget: req.query.budget || 0,
+      price: req.query.price || 0,
       daysToMake: req.query.daysToMake || 0,
     }
     const gigs = await gigService.query(filterBy)
@@ -35,7 +35,7 @@ async function addGig(req, res) {
 
   try {
     const gig = req.body
-    gig.owner = loggedinUser
+    // gig.owner = loggedinUser
     const addedGig = await gigService.add(gig)
     res.json(addedGig)
   } catch (err) {
