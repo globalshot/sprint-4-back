@@ -109,6 +109,10 @@ function _buildCriteria(filterBy) {
         criteria.daysToMake = { $lte: parseFloat(filterBy.daysToMake) }
     }
 
+    if (filterBy.id) {
+        // gigs = gigs.filter(gig => gig.owner._id === filterBy.id)
+    }
+
     return criteria
 }
 
