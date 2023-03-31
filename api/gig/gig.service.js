@@ -5,6 +5,7 @@ const ObjectId = require('mongodb').ObjectId
 
 async function query(filterBy = { title: '' }) {
     try {
+        console.log('filterBy',filterBy);
         const criteria = _buildCriteria(filterBy)
         const collection = await dbService.getCollection('gig')
         var gigs = await collection.find(criteria).toArray()
@@ -109,8 +110,8 @@ function _buildCriteria(filterBy) {
         criteria.daysToMake = { $lte: parseFloat(filterBy.daysToMake) }
     }
 
-    if (filterBy.id) {
-        // gigs = gigs.filter(gig => gig.owner._id === filterBy.id)
+    if (filterBy.owner){
+        criteria['owner._id'] = {$eq: filterBy.owner}
     }
 
     return criteria

@@ -10,7 +10,7 @@ async function getGigs(req, res) {
       tag: req.query.tag || '',
       price: req.query.price || 0,
       daysToMake: req.query.daysToMake || 0,
-      id: req.params.id || '',
+      owner: req.query.owner || '',
     }
     const gigs = await gigService.query(filterBy)
     res.json(gigs)
