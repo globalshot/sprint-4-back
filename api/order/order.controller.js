@@ -61,16 +61,19 @@ async function _createOrder(gigId, buyer) {
     return {
       buyer: {
         _id: buyer._id,
-        fullname: buyer.fullname
+        fullname: buyer.fullname,
+        imgUrl: buyer.imgUrl
       },
       seller: {
         _id: gig.owner._id,
-        fullname: gig.owner.fullname
+        fullname: gig.owner.fullname,
+        imgUrl: gig.owner.imgUrl
       },
       gig: {
         _id: gig._id,
         name: gig.description,
-        price: gig.price
+        price: gig.price,
+        imgUrl: gig.imgUrl[0] || 'https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg'
       },
       status: "pending"
     }
