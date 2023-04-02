@@ -1,4 +1,5 @@
 const logger = require('./logger.service')
+const gigService = require('../api/gig/gig.service')
 
 var gIo = null
 
@@ -41,6 +42,17 @@ function setupSocketAPI(http) {
         socket.on('unset-user-socket', () => {
             logger.info(`Removing socket.userId for socket [id: ${socket.id}]`)
             delete socket.userId
+        })
+        socket.on('gig-ordered', async (gigId)=>{
+            const { owner } = await gigService.getById(gigId)
+            logger.info(`new order was created ${gigId}`)
+            const ownerSocket = await _getUserSocket(owner._id)
+            ownerSocket.emit(`user-ordered`, 'you have new order')
+            // console.log("ownerSocket",ownerSocket);
+        })
+        socket.on('change-order-status', async (buyer) => {
+            const buyerSocket = await _getUserSocket(buyer._id)
+            buyerSocket.emit(`order-status-updaate`, 'your order is being proccesed')
         })
 
     })
