@@ -47,12 +47,16 @@ function setupSocketAPI(http) {
             const { owner } = await gigService.getById(gigId)
             logger.info(`new order was created ${gigId}`)
             const ownerSocket = await _getUserSocket(owner._id)
-            ownerSocket.emit(`user-ordered`, 'you have new order')
+            if (ownerSocket) {
+                ownerSocket.emit(`user-ordered`, 'you have new order')
+            }
             // console.log("ownerSocket",ownerSocket);
         })
         socket.on('change-order-status', async (buyer) => {
             const buyerSocket = await _getUserSocket(buyer._id)
-            buyerSocket.emit(`order-status-updaate`, 'your order is being proccesed')
+            if (buyerSocket) {
+                buyerSocket.emit(`order-status-updaate`, 'your order is being proccesed')
+            }
         })
 
     })
