@@ -58,6 +58,8 @@ async function updateOrder(req, res) {
 async function _createOrder(gigId, buyer) {
   try {
     const gig = await gigService.getById(gigId)
+    const date = Date.now()
+    const deadLine = (+date + (gig.daysToMake * 24 * 60 * 60 * 1000))
     return {
       buyer: {
         _id: buyer._id,
@@ -74,7 +76,8 @@ async function _createOrder(gigId, buyer) {
         _id: gig._id,
         name: gig.title,
         price: gig.price,
-        imgUrl: gig.imgUrl[0] || 'https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg'
+        imgUrl: gig.imgUrl[0] || 'https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg',
+        deadLine: deadLine
       },
       status: "pending"
     }
