@@ -6,7 +6,7 @@ async function getGigs(req, res) {
   try {
     logger.debug('Getting Gigs')//to update, same as front
     const filterBy = {
-      title: req.query.title || '',
+      txt: req.query.txt || '',
       tag: req.query.tag || '',
       price: req.query.price || 0,
       daysToMake: req.query.daysToMake || 0,

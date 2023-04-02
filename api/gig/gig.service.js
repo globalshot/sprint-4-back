@@ -89,9 +89,9 @@ async function removeGigMsg(gigId, msgId) {
 function _buildCriteria(filterBy) {
     const criteria = {}
 
-    if (filterBy.title) {
+    if (filterBy.txt) {
         criteria.$or = [
-            { title: { $regex: new RegExp(filterBy.title, 'i') } },
+            { title: { $regex: new RegExp(filterBy.txt, 'i') } },
         ]
     }
 
