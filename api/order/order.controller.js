@@ -72,8 +72,9 @@ async function _createOrder(gigId, buyer) {
         imgUrl: gig.owner.imgUrl
       },
       gig: {
+        date: new Date().toLocaleDateString("de-DE"),
         _id: gig._id,
-        name: gig.description,
+        name: gig.title,
         price: gig.price,
         imgUrl: gig.imgUrl[0] || 'https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg',
         deadLine: deadLine
