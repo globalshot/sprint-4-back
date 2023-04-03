@@ -54,8 +54,9 @@ function setupSocketAPI(http) {
         })
         socket.on('change-order-status', async (buyer) => {
             const buyerSocket = await _getUserSocket(buyer._id)
+            console.log('buyerSocket: ', buyerSocket);
             if (buyerSocket) {
-                buyerSocket.emit(`order-status-updaate`, 'your order is being proccesed')
+                buyerSocket.emit(`order-status-update`, 'your order is being proccesed')
             }
         })
 
